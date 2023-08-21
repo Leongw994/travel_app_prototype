@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelapp/color_utils/colors.dart';
@@ -16,7 +17,12 @@ class _SignUpPageState extends State<SignUpPage> {
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
 
-  Future signUp() async {}
+  Future signUp() async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: _emailTextController.text.trim(),
+      password: _passwordTextController.text.trim(),
+    );
+  }
 
   @override
   void dispose() {
@@ -29,6 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: hexStringToColor('18FFFF'),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -110,7 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         borderRadius: BorderRadius.circular(13)),
                     child: Center(
                         child: Text(
-                      "Sign In",
+                      "Register",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -121,21 +128,6 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
               SizedBox(height: 27),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Don't have an account?",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  GestureDetector(
-                    onTap: widget.showLoginPage,
-                    child: Text(
-                      "Sign Up Now",
-                      style: TextStyle(
-                          color: Colors.blue, fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              )
             ],
           ),
         ),
