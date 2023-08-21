@@ -1,27 +1,22 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelapp/color_utils/colors.dart';
-import 'package:travelapp/resuable_widget/reusable_widgets.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+import '../resuable_widget/reusable_widgets.dart';
+
+class SignUpPage extends StatefulWidget {
+  final VoidCallback showLoginPage;
+  const SignUpPage({super.key, required this.showLoginPage});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  //textfield controllers
+class _SignUpPageState extends State<SignUpPage> {
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
 
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailTextController.text.trim(),
-      password: _passwordTextController.text.trim(),
-    );
-  }
+  Future signUp() async {}
 
   @override
   void dispose() {
@@ -50,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: 5),
               Text(
-                "Welcome back, start exploring!",
+                "Register below with chosen credentials",
                 style: TextStyle(
                   fontSize: 20,
                 ),
@@ -107,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: GestureDetector(
-                  onTap: signIn,
+                  onTap: signUp,
                   child: Container(
                     padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
@@ -131,10 +126,13 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Text("Don't have an account?",
                       style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text(
-                    "Sign Up Now",
-                    style: TextStyle(
-                        color: Colors.blue, fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: widget.showLoginPage,
+                    child: Text(
+                      "Sign Up Now",
+                      style: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
                   )
                 ],
               )
