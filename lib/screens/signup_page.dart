@@ -16,12 +16,24 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
+  final _confirmPasswordTextController = TextEditingController();
 
   Future signUp() async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: _emailTextController.text.trim(),
-      password: _passwordTextController.text.trim(),
-    );
+    if (isPasswordCorrect()) {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailTextController.text.trim(),
+        password: _passwordTextController.text.trim(),
+      );
+    }
+  }
+
+  bool isPasswordCorrect() {
+    if (_passwordTextController.text.trim() ==
+        _confirmPasswordTextController.text.trim()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -105,6 +117,28 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
               SizedBox(height: 10),
+              //confirm password
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: TextField(
+                      controller: _confirmPasswordTextController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Retype password',
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 30),
               //sign in button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -128,6 +162,21 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
               SizedBox(height: 27),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Already a member?",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  GestureDetector(
+                    onTap: widget.showLoginPage,
+                    child: Text(
+                      "Login Now",
+                      style: TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),
