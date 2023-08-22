@@ -48,7 +48,11 @@ class _HomePageState extends State<HomePage> {
   //goes to the details page
   void navigatetoDetail(int index) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DetailsPage()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => DetailsPage(
+                  location: locationList[index],
+                )));
   }
 
   @override
