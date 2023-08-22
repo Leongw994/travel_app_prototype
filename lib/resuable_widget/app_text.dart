@@ -8,7 +8,7 @@ class AppText extends StatelessWidget {
 
   AppText(
       {super.key,
-      this.size = 12,
+      this.size = 25,
       required this.text,
       this.colour = Colors.black54});
 

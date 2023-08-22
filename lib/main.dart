@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:travelapp/authentication/main_page.dart';
+import 'package:travelapp/screens/main_screen.dart';
+import 'package:travelapp/screens/welcome_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +20,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MainPage(),
+      routes: {
+        '/welcomepage': (context) => const WelcomePage(),
+        '/homepage': (context) => const MainScreen()
+      },
     );
   }
 }

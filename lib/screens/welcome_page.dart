@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travelapp/resuable_widget/app_large_text.dart';
 import 'package:travelapp/resuable_widget/app_text.dart';
+import 'package:travelapp/resuable_widget/button.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -46,6 +47,14 @@ class _WelcomePageState extends State<WelcomePage> {
                           ),
                         ),
                         SizedBox(height: 40),
+                        //Continue button
+                        Button(
+                          text: "Get started",
+                          onTap: () {
+                            //go to the home page on tap
+                            Navigator.pushNamed(context, '/homepage');
+                          },
+                        ),
                       ],
                     ),
                     Column(
