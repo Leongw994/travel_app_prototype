@@ -34,7 +34,11 @@ class _CameraPageState extends State<CameraPage> {
           titleTextStyle: TextStyle(
               fontSize: 20, letterSpacing: 2, fontWeight: FontWeight.bold),
         ),
-        drawer: MyDrawer(),
+        drawer: MyDrawer(
+            // onProfile: ,
+            // onAR: ,
+            // onTap: ,
+            ),
         body: Stack(
           fit: StackFit.expand,
           children: [

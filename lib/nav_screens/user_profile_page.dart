@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travelapp/color_utils/colors.dart';
 import 'package:travelapp/models/drawer.dart';
+import 'package:travelapp/nav_screens/camera_page.dart';
+import 'package:travelapp/nav_screens/home_page.dart';
+import 'package:travelapp/resuable_widget/textuser.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
@@ -13,30 +16,147 @@ class UserProfilePage extends StatefulWidget {
 class _UserProfilePageState extends State<UserProfilePage> {
   final user = FirebaseAuth.instance.currentUser!;
 
+  //go to home page
+  void goToHomePage() {
+    //pop menu drawer
+    Navigator.pop(context);
+    //go to profile page
+    Navigator.push(
+        context, MaterialPageRoute(builder: ((context) => HomePage())));
+  }
+
+  //go to AR page
+  void goToCameraPage() {
+    //pop menu drawer
+    Navigator.pop(context);
+    //go to profile page
+    Navigator.push(
+        context, MaterialPageRoute(builder: ((context) => CameraPage())));
+  }
+
+  //edit button
+  Future<void> editField(String field) async {
+    String newValue = "";
+    await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              backgroundColor: Colors.black,
+              title: Text(
+                'Edit ' + field,
+                style: TextStyle(color: Colors.white),
+              ),
+              content: TextField(
+                autofocus: true,
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                    hintText: "Enter your new " + field,
+                    hintStyle: TextStyle(color: Colors.grey)),
+                onChanged: (value) {
+                  newValue = value;
+                },
+              ),
+              actions: [
+                //text button cancel
+                TextButton(
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                ),
+
+                //save text button
+                TextButton(
+                  child: Text(
+                    'Save',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () => Navigator.of(context).pop(newValue),
+                ),
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Your profile"),
-        backgroundColor: hexStringToColor('00E5FF'),
-        titleTextStyle: TextStyle(
-            fontSize: 20, letterSpacing: 2, fontWeight: FontWeight.bold),
-      ),
-      drawer: MyDrawer(),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text("Signed in as " + user.email!),
-          MaterialButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-            },
-            color: Colors.blue,
-            child: Text("Logout"),
+        appBar: AppBar(
+          title: Text("Your profile"),
+          backgroundColor: hexStringToColor('00E5FF'),
+          titleTextStyle: TextStyle(
+              fontSize: 20, letterSpacing: 2, fontWeight: FontWeight.bold),
+        ),
+        drawer: MyDrawer(
+          onTap: goToHomePage,
+          onAR: goToCameraPage,
+        ),
+        body: ListView(children: [
+          const SizedBox(
+            height: 40,
+          ),
+          //Profile picture
+          Icon(
+            Icons.person,
+            size: 80,
+          ),
+
+          SizedBox(
+            height: 25,
+          ),
+
+          //user email
+          Text(user.email!,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.grey[700])),
+
+          SizedBox(height: 50),
+
+          //details
+          Padding(
+            padding: const EdgeInsets.only(left: 26),
+            child: Text(
+              'My Details',
+              style: TextStyle(color: Colors.grey[700]),
+            ),
+          ),
+
+          //username
+          TextBox(
+            text: 'leongw99',
+            sectionName: 'Username',
+            onPressed: () => editField('username'),
+          ),
+
+          //user bio
+          TextBox(
+            text: 'Nationality: Russian',
+            sectionName: 'bio',
+            onPressed: () => editField('bio'),
+          ),
+
+          //user email
+          TextBox(
+            text: user.email!,
+            sectionName: 'email address',
+            onPressed: () => editField('Bio'),
+          ),
+
+          SizedBox(height: 50),
+
+          //visited places
+          Padding(
+            padding: const EdgeInsets.only(left: 26),
+            child: Text(
+              'Visited places',
+              style: TextStyle(color: Colors.grey[700]),
+            ),
+          ),
+
+          //places
+          Padding(
+            padding: const EdgeInsets.only(left: 26),
+            child: Center(),
           )
-        ],
-      )),
-    );
+        ]));
   }
 }

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:travelapp/color_utils/colors.dart';
+import 'package:travelapp/models/drawer.dart';
+import 'package:travelapp/nav_screens/camera_page.dart';
+import 'package:travelapp/nav_screens/user_profile_page.dart';
 import 'package:travelapp/resuable_widget/app_large_text.dart';
 import 'package:travelapp/resuable_widget/app_text.dart';
 import 'package:travelapp/resuable_widget/cart.dart';
@@ -22,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     "drinks.png": "Food and Drinks"
   };
 
-  //goes to the details page
+  //goes to the profile page
   void navigatetoDetail(int index) {
     //locations list
     final shop = context.read<Shop>();
@@ -36,6 +40,24 @@ class _HomePageState extends State<HomePage> {
                 )));
   }
 
+  //go to profile page
+  void goToProfilePage() {
+    //pop menu drawer
+    Navigator.pop(context);
+    //go to profile page
+    Navigator.push(
+        context, MaterialPageRoute(builder: ((context) => UserProfilePage())));
+  }
+
+  //go to AR page
+  void goToCameraPage() {
+    //pop menu drawer
+    Navigator.pop(context);
+    //go to profile page
+    Navigator.push(
+        context, MaterialPageRoute(builder: ((context) => CameraPage())));
+  }
+
   @override
   Widget build(BuildContext context) {
     final shop = context.read<Shop>();
@@ -43,35 +65,50 @@ class _HomePageState extends State<HomePage> {
     //TabController _tabController = TabController(length: 3, vsync: this);
     return Scaffold(
       backgroundColor: Colors.white10,
+      appBar: AppBar(
+        title: Text("Home"),
+        backgroundColor: hexStringToColor('00E5FF'),
+        titleTextStyle: TextStyle(
+            fontSize: 20, letterSpacing: 2, fontWeight: FontWeight.bold),
+      ),
+      drawer: MyDrawer(
+        onProfile: goToProfilePage,
+        onAR: goToCameraPage,
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //User avatar and menu icon
-          Container(
-            padding: const EdgeInsets.only(top: 70, left: 20),
-            child: Row(
-              children: [
-                //Icon(Icons.menu, size: 24, color: Colors.black),
-                //MyDrawer(),
-                Expanded(child: Container()),
-                Container(
-                  margin: const EdgeInsets.only(right: 20),
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey.withOpacity(0.5)),
-                  padding: EdgeInsets.all(10.0),
-                  child: Image.asset('images/user.png'),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 40),
+          // Container(
+          //   padding: const EdgeInsets.only(top: 70, left: 20),
+          //   child: Row(
+          //     children: [
+          //       AppLargeText(
+          //         text: 'Welcome to MyNotts!',
+          //         size: 11,
+          //       ),
+          //       //MyDrawer(),
+          //       Expanded(child: Container()),
+          //       Container(
+          //         margin: const EdgeInsets.only(right: 20),
+          //         width: 50,
+          //         height: 50,
+          //         decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(10),
+          //             color: Colors.grey.withOpacity(0.5)),
+          //         padding: EdgeInsets.all(10.0),
+          //         child: Image.asset('images/user.png'),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           //Welcome message with user email
+          SizedBox(
+            height: 30,
+          ),
           Container(
             margin: const EdgeInsets.only(left: 20),
-            child: Text('Search locations!',
+            child: const Text('Search locations!',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
           ),
           SizedBox(height: 20),
