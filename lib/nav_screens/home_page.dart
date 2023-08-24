@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:travelapp/models/locations.dart';
+import 'package:provider/provider.dart';
 import 'package:travelapp/resuable_widget/app_large_text.dart';
 import 'package:travelapp/resuable_widget/app_text.dart';
+import 'package:travelapp/resuable_widget/cart.dart';
 import 'package:travelapp/resuable_widget/location_card.dart';
 import 'package:travelapp/screens/details_page.dart';
 
@@ -13,30 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //locations list
-  List locationList = [
-    Location(
-        name: "Lace Market",
-        price: "21.00",
-        imagePath: "images/centre.jpg",
-        location: "Nottingham, UK"),
-    Location(
-        name: "Nottingham Castle",
-        price: "16.00",
-        imagePath: "images/history.jpeg",
-        location: "Nottingham, UK"),
-    Location(
-        name: "Ye Olde Trip to Jerusalem",
-        price: "11.00",
-        imagePath: "images/jerusalem.jpg",
-        location: "Nottingham, UK"),
-    Location(
-        name: "National Justice Museum",
-        price: "17.00",
-        imagePath: "images/museum.jpg.webp",
-        location: "Nottingham, UK"),
-  ];
-
   //images that viewed at the botton of the page
   var images = {
     "Shopping.png": "Shopping",
@@ -47,6 +24,10 @@ class _HomePageState extends State<HomePage> {
 
   //goes to the details page
   void navigatetoDetail(int index) {
+    //locations list
+    final shop = context.read<Shop>();
+    final locationList = shop.locationList;
+
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -57,6 +38,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final shop = context.read<Shop>();
+    final locationList = shop.locationList;
     //TabController _tabController = TabController(length: 3, vsync: this);
     return Scaffold(
       backgroundColor: Colors.white10,
@@ -68,7 +51,8 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(top: 70, left: 20),
             child: Row(
               children: [
-                Icon(Icons.menu, size: 24, color: Colors.black),
+                //Icon(Icons.menu, size: 24, color: Colors.black),
+                //MyDrawer(),
                 Expanded(child: Container()),
                 Container(
                   margin: const EdgeInsets.only(right: 20),
@@ -169,30 +153,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-// class TabIndicatorStyle extends Decoration {
-//   final Color color;
-//   double radius;
-//   TabIndicatorStyle({required this.color, required this.radius});
-//   @override
-//   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-//     // TODO: implement createBoxPainter
-//     return _circlePaint(color: color, radius: radius);
-//   }
-// }
-
-// class _circlePaint extends BoxPainter {
-//   final Color color;
-//   double radius;
-//   _circlePaint({required this.color, required this.radius});
-//   @override
-//   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-//     Paint _paint = Paint();
-//     _paint.color = color;
-//     _paint.isAntiAlias = true;
-//     final Offset circleOffset = Offset(
-//         configuration.size!.width / 2 - radius / 2, configuration.size!.height);
-//     canvas.drawCircle(offset + circleOffset, radius, _paint);
-//     // TODO: implement paint
-//   }
-// }

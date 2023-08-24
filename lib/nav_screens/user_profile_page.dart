@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travelapp/color_utils/colors.dart';
+import 'package:travelapp/models/drawer.dart';
 
 class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
@@ -14,6 +16,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Your profile"),
+        backgroundColor: hexStringToColor('00E5FF'),
+        titleTextStyle: TextStyle(
+            fontSize: 20, letterSpacing: 2, fontWeight: FontWeight.bold),
+      ),
+      drawer: MyDrawer(),
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travelapp/color_utils/colors.dart';
 import 'package:travelapp/models/locations.dart';
 import 'package:travelapp/resuable_widget/app_large_text.dart';
 import 'package:travelapp/resuable_widget/app_text.dart';
 import 'package:travelapp/resuable_widget/button.dart';
+import 'package:travelapp/resuable_widget/cart.dart';
 
 class DetailsPage extends StatefulWidget {
   final Location location;
@@ -22,7 +24,7 @@ class _DetailsPageState extends State<DetailsPage> {
   //remove visitors
   void decrement() {
     setState(() {
-      if (quantityCount >= 0) {
+      if (quantityCount > 0) {
         quantityCount--;
       }
     });
@@ -36,7 +38,13 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   //Book trip method
-  void bookTrip() {}
+  void bookTrip() {
+    if (quantityCount > 0) {
+      //access shop
+      final shop = context.read<Shop>();
+      //add to cart
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
