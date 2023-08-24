@@ -14,7 +14,7 @@ class MyTile extends StatelessWidget {
         leading: Icon(
           icon,
           color: Colors.white,
-          size: 64,
+          size: 30,
         ),
         onTap: onTap,
         title: Text(
