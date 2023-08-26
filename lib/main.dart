@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travelapp/authentication/main_page.dart';
 import 'package:travelapp/resuable_widget/cart.dart';
+import 'package:travelapp/screens/booked_trips_page.dart';
 import 'package:travelapp/screens/main_screen.dart';
 import 'package:travelapp/screens/welcome_page.dart';
 
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
       home: MainPage(),
       routes: {
         '/welcomepage': (context) => const WelcomePage(),
-        '/homepage': (context) => const MainScreen()
+        '/homepage': (context) => const MainScreen(),
+        '/shoppage': (context) => const BookedTripPage()
       },
     );
   }

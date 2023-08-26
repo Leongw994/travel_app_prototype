@@ -129,7 +129,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
           //user bio
           TextBox(
-            text: 'Nationality: Russian',
+            text: 'Home country: United Kingdom',
             sectionName: 'bio',
             onPressed: () => editField('bio'),
           ),
@@ -152,11 +152,28 @@ class _UserProfilePageState extends State<UserProfilePage> {
             ),
           ),
 
+          SizedBox(
+            height: 20,
+          ),
+
+          Padding(
+            padding: const EdgeInsets.all(35),
+            child: MaterialButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+              color: Colors.blue,
+              child: Text("Logout"),
+            ),
+          ),
+
           //places
           Padding(
             padding: const EdgeInsets.only(left: 26),
             child: Center(),
           )
         ]));
+
+    //logout button
   }
 }

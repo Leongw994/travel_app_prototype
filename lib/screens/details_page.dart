@@ -43,6 +43,26 @@ class _DetailsPageState extends State<DetailsPage> {
       //access shop
       final shop = context.read<Shop>();
       //add to cart
+      shop.addToBasket(widget.location, quantityCount);
+      //notify the user if the purchase was successful
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+          content: const Text('Booking successful!'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                //pop once to remove dialog box
+                Navigator.pop(context);
+                //pop again to go to previous screen
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.done),
+            )
+          ],
+        ),
+      );
     }
   }
 
@@ -211,12 +231,13 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
             //Book trip button
             SizedBox(height: 25),
+
             Positioned(
               bottom: 20,
               left: 20,
               right: 20,
               child: Button(text: 'Book trip', onTap: bookTrip),
-            )
+            ),
           ],
         ),
       ),

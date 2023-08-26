@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     "drinks.png": "Food and Drinks"
   };
 
-  //goes to the profile page
+  //goes to the location detail page
   void navigatetoDetail(int index) {
     //locations list
     final shop = context.read<Shop>();
@@ -66,7 +66,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white10,
       appBar: AppBar(
-        title: Text("Home"),
+        title: const Text("Home"),
+        elevation: 0,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/shoppage');
+              },
+              icon: const Icon(Icons.shopping_cart))
+        ],
         backgroundColor: hexStringToColor('00E5FF'),
         titleTextStyle: TextStyle(
             fontSize: 20, letterSpacing: 2, fontWeight: FontWeight.bold),
