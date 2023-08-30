@@ -59,12 +59,13 @@ class _MapPageState extends State<MapPage> {
     markers.add(Marker(
         markerId: MarkerId('1'),
         position: LatLng(52.9496, -1.1548),
-        infoWindow: InfoWindow(title: "Nottingham Castle")));
+        infoWindow: InfoWindow(title: "Nottingham Castle. Built: 1068 AD")));
 
     markers.add(Marker(
         markerId: MarkerId('2'),
         position: LatLng(52.9493, -1.1526),
-        infoWindow: InfoWindow(title: "Ye Olde Trip to Jerusalem")));
+        infoWindow: InfoWindow(
+            title: "Ye Olde Trip to Jerusalem. Established: 1189 AD")));
 
     markers.add(Marker(
         markerId: MarkerId('3'),
@@ -78,14 +79,25 @@ class _MapPageState extends State<MapPage> {
 
     markers.add(Marker(
         markerId: MarkerId('5'),
-        position: LatLng(52.9496, -1.1548),
+        position: LatLng(52.9398, -1.1328),
         infoWindow:
             InfoWindow(title: "City Ground: Nottingham Forest Stadium")));
 
     markers.add(Marker(
         markerId: MarkerId('6'),
-        position: LatLng(52.9465, -1.12111),
+        position: LatLng(52.9478, -1.1209),
         infoWindow: InfoWindow(title: "Wollaton Hall")));
+
+    markers.add(Marker(
+        markerId: MarkerId('7'),
+        position: LatLng(52.9554, -1.1605),
+        infoWindow: InfoWindow(title: "Haunted Museum of Nottingham")));
+
+    markers.add(Marker(
+        markerId: MarkerId('8'),
+        position: LatLng(52.9364, -1.1953),
+        infoWindow: InfoWindow(
+            title: "University Park Campus: University of Nottingham")));
 
     return markers;
   }
