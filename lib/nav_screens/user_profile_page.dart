@@ -146,9 +146,21 @@ class _UserProfilePageState extends State<UserProfilePage> {
           //visited places
           Padding(
             padding: const EdgeInsets.only(left: 26),
-            child: Text(
-              'Visited places',
-              style: TextStyle(color: Colors.grey[700]),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Visited places',
+                  style: TextStyle(color: Colors.grey[700]),
+                ),
+                SizedBox(height: 15),
+                //list of visited places
+                Text(' - Ye Olde Trip to Jerusalem.\nDate visited: 21/08/2023'),
+                SizedBox(height: 5),
+                Text(' - City Caves.\nDate visited: 12/08/2023'),
+                SizedBox(height: 5),
+                Text(' - Wollaton Hall.\nDate visited: 01/08/2023'),
+              ],
             ),
           ),
 

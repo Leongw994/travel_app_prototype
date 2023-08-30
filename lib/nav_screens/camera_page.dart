@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:arkit_plugin/arkit_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:travelapp/color_utils/colors.dart';
-import 'package:travelapp/models/drawer.dart';
-import 'package:vector_math/vector_math_64.dart';
+import 'package:vector_math/vector_math_64.dart' as vector;
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
@@ -16,7 +15,7 @@ class CameraPage extends StatefulWidget {
 class _CameraPageState extends State<CameraPage> {
   late ARKitController arKitController;
   Timer? timer;
-  bool anchorFound = false;
+  bool anchorWasFound = false;
 
   @override
   void dispose() {
@@ -28,73 +27,81 @@ class _CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("AR Landmark Overlay"),
-          backgroundColor: hexStringToColor('00E5FF'),
-          titleTextStyle: TextStyle(
-              fontSize: 20, letterSpacing: 2, fontWeight: FontWeight.bold),
-        ),
-        drawer: MyDrawer(
-            // onProfile: ,
-            // onAR: ,
-            // onTap: ,
-            ),
-        body: Stack(
-          fit: StackFit.expand,
-          children: [
-            ARKitSceneView(
-              onARKitViewCreated: onARKitCreatedView,
-              detectionImagesGroupName: 'AR content',
-            ),
-            anchorFound
-                ? Container()
-                : Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Point the camera at the landmark',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(color: hexStringToColor('000000')),
-                    ),
+      appBar: AppBar(
+        title: Text("Explore Nottingham"),
+        backgroundColor: hexStringToColor('00E5FF'),
+        titleTextStyle: TextStyle(
+            fontSize: 20, letterSpacing: 2, fontWeight: FontWeight.bold),
+      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          ARKitSceneView(
+            onARKitViewCreated: onARKitViewCreated,
+            detectionImagesGroupName: 'AR Resources 1',
+          ),
+          anchorWasFound
+              ? Container()
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Point the camera at the landmark',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(color: Colors.white),
                   ),
-          ],
-        ));
+                )
+        ],
+      ),
+    );
   }
 
-  void onARKitCreatedView(ARKitController controller) {
-    arKitController = controller;
-    this.arKitController.onAddNodeForAnchor = onAnchorFound;
-
-    // final image = ARKitReferenceImage(
-    //   name: 'castle-2.png',
-    //   physicalWidth: 0.3,
-    // );
+  void onARKitViewCreated(ARKitController arKitController) {
+    this.arKitController = arKitController;
+    this.arKitController.onAddNodeForAnchor = _onImagesDetected;
   }
 
-  void onAnchorFound(ARKitAnchor anchor) {
+  void _onImagesDetected(ARKitAnchor anchor) {
     if (anchor is ARKitImageAnchor) {
-      setState(() => anchorFound = true);
-
-      final material = ARKitMaterial(
-          lightingModelName: ARKitLightingModel.lambert,
-          diffuse: ARKitMaterialProperty.image('moon.png'));
-
-      final sphere = ARKitSphere(materials: [material], radius: 0.1);
-
-      final imagePosition = anchor.transform.getColumn(3);
-      final node = ARKitNode(
-        geometry: sphere,
-        position: Vector3(imagePosition.x, imagePosition.y, imagePosition.z),
-        eulerAngles: Vector3.zero(),
-      );
-      arKitController.add(node);
-
-      timer = Timer.periodic(const Duration(microseconds: 50), (timer) {
-        final old = node.eulerAngles;
-        final eulerAngles = Vector3(old.x + 0.01, old.y, old.z);
-        node.eulerAngles = eulerAngles;
+      setState(() {
+        anchorWasFound = true;
       });
     }
+
+    final material =
+        ARKitMaterial(diffuse: ARKitMaterialProperty.color(Colors.red));
+
+    final arText = ARKitText(
+      text:
+          'This is Nottingham Castle built in 1390 AD.\ntap here to find out more!',
+      extrusionDepth: 0.01,
+      materials: [material],
+    );
+
+    final imagePosition = anchor.transform.getColumn(3);
+
+    final containerNode = ARKitNode(
+      geometry: arText,
+      position:
+          vector.Vector3(imagePosition.x, imagePosition.y, imagePosition.z),
+      eulerAngles: vector.Vector3.zero(),
+    );
+
+    final infoTextPosition = vector.Vector3(
+      imagePosition.x,
+      imagePosition.y - 0.05,
+      imagePosition.z,
+    );
+
+    arKitController.add(containerNode);
+
+    // final node = ARKitNode(
+    //   geometry: arText,
+    //   position:
+    //       vector.Vector3(imagePosition.x, imagePosition.y, imagePosition.z),
+    //   eulerAngles: vector.Vector3.zero(),
+    // );
+    // arKitController.add(node);
   }
 }

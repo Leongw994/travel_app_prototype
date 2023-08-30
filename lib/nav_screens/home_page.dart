@@ -58,6 +58,8 @@ class _HomePageState extends State<HomePage> {
         context, MaterialPageRoute(builder: ((context) => CameraPage())));
   }
 
+  TextEditingController _searchLandmarkController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final shop = context.read<Shop>();
@@ -124,13 +126,20 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: TextField(
+              controller: _searchLandmarkController,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(20)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(20))),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20)),
+                hintText: 'Search location',
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.black,
+                ),
+              ),
             ),
           ),
           SizedBox(height: 11),

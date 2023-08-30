@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelapp/color_utils/colors.dart';
 import 'package:travelapp/resuable_widget/reusable_widgets.dart';
+import 'package:travelapp/screens/forgot_password_page.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -124,6 +125,31 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     )),
                   ),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              //password recovery
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ForgotPasswordPage()));
+                      },
+                      child: Text(
+                        'Forgot password?',
+                        style: TextStyle(
+                            color: Colors.blue, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 27),

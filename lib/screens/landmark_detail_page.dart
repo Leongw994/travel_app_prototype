@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travelapp/color_utils/colors.dart';
-import 'package:travelapp/models/locations.dart';
 import 'package:travelapp/resuable_widget/app_large_text.dart';
 import 'package:travelapp/resuable_widget/app_text.dart';
 import 'package:travelapp/resuable_widget/button.dart';
 import 'package:travelapp/resuable_widget/cart.dart';
 
 class MuseumDetail extends StatefulWidget {
-  final Location location;
-  const MuseumDetail({super.key, required this.location});
+  const MuseumDetail({super.key});
 
   @override
   State<MuseumDetail> createState() => _MuseumDetailState();
@@ -159,13 +157,7 @@ class _MuseumDetailState extends State<MuseumDetail> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             //price
-                            Text(
-                              "\£" + widget.location.price,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10),
-                            ),
+                            Text("\£ 12.00"),
                             //number of people
                             Row(
                               children: [

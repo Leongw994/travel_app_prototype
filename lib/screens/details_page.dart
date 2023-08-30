@@ -122,7 +122,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             AppLargeText(
                                 text: "Jerusalem Inn", colour: Colors.black54),
                             AppLargeText(
-                                text: "  £17.00",
+                                text: "  £11.00",
                                 colour: hexStringToColor('00BCD4'))
                           ],
                         ),
