@@ -3,6 +3,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:travelapp/color_utils/colors.dart';
 import 'package:travelapp/models/drawer.dart';
+import 'package:travelapp/nav_screens/camera_page.dart';
+import 'package:travelapp/nav_screens/home_page.dart';
+import 'package:travelapp/nav_screens/user_profile_page.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -32,6 +35,33 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
+  //go to AR page
+  void goToCameraPage() {
+    //pop menu drawer
+    Navigator.pop(context);
+    //go to profile page
+    Navigator.push(
+        context, MaterialPageRoute(builder: ((context) => CameraPage())));
+  }
+
+  //go to profile page
+  void goToProfilePage() {
+    //pop menu drawer
+    Navigator.pop(context);
+    //go to profile page
+    Navigator.push(
+        context, MaterialPageRoute(builder: ((context) => UserProfilePage())));
+  }
+
+  //go to home page
+  void goToHomePage() {
+    //pop menu drawer
+    Navigator.pop(context);
+    //go to home page
+    Navigator.push(
+        context, MaterialPageRoute(builder: ((context) => HomePage())));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +71,11 @@ class _MapPageState extends State<MapPage> {
           titleTextStyle: TextStyle(
               fontSize: 20, letterSpacing: 2, fontWeight: FontWeight.bold),
         ),
-        drawer: MyDrawer(),
+        drawer: MyDrawer(
+          onTap: goToHomePage,
+          onAR: goToCameraPage,
+          onProfile: goToProfilePage,
+        ),
         body: GoogleMap(
           initialCameraPosition: initialPos,
           onMapCreated: (controller) {

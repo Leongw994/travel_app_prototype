@@ -10,9 +10,15 @@ class MyDrawer extends StatelessWidget {
   final void Function()? onLogout;
   final void Function()? onProfile;
   final void Function()? onAR;
+  final void Function()? onMap;
 
   const MyDrawer(
-      {super.key, this.onTap, this.onLogout, this.onProfile, this.onAR});
+      {super.key,
+      this.onTap,
+      this.onLogout,
+      this.onProfile,
+      this.onAR,
+      this.onMap});
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +61,12 @@ class MyDrawer extends StatelessWidget {
           icon: Icons.camera,
           text: 'Explore with AR',
           onTap: onProfile,
+        ),
+        //map tile
+        MyTile(
+          icon: Icons.map,
+          text: 'Interactive map',
+          onTap: onMap,
         ),
         //Logout tile
         MyTile(icon: Icons.logout, text: 'Logout', onTap: onLogout),

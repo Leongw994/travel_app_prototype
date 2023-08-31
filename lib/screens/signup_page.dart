@@ -19,11 +19,22 @@ class _SignUpPageState extends State<SignUpPage> {
   final _confirmPasswordTextController = TextEditingController();
 
   Future signUp() async {
-    if (isPasswordCorrect()) {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailTextController.text.trim(),
-        password: _passwordTextController.text.trim(),
-      );
+    try {
+      if (isPasswordCorrect()) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailTextController.text.trim(),
+          password: _passwordTextController.text.trim(),
+        );
+      }
+    } on FirebaseAuthException catch (ex) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text(
+                  "user email address already exists, choose a different one!"),
+            );
+          });
     }
   }
 

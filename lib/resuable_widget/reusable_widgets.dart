@@ -9,3 +9,13 @@ Image logoWidget(String imageName) {
     color: Colors.white,
   );
 }
+
+Image blackLogoWidget(String name) {
+  return Image.asset(
+    name,
+    fit: BoxFit.fitWidth,
+    width: 100,
+    height: 100,
+    color: Color.fromARGB(255, 7, 97, 128),
+  );
+}

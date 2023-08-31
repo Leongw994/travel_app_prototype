@@ -3,6 +3,10 @@ import 'dart:async';
 import 'package:arkit_plugin/arkit_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:travelapp/color_utils/colors.dart';
+import 'package:travelapp/models/drawer.dart';
+import 'package:travelapp/nav_screens/home_page.dart';
+import 'package:travelapp/nav_screens/map_page.dart';
+import 'package:travelapp/nav_screens/user_profile_page.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
 class CameraPage extends StatefulWidget {
@@ -24,6 +28,33 @@ class _CameraPageState extends State<CameraPage> {
     super.dispose();
   }
 
+  //go to home page
+  void goToHomePage() {
+    //pop menu drawer
+    Navigator.pop(context);
+    //go to profile page
+    Navigator.push(
+        context, MaterialPageRoute(builder: ((context) => HomePage())));
+  }
+
+  //go to map page
+  void goToMapPage() {
+    //pop menu drawer
+    Navigator.pop(context);
+    //go to profile page
+    Navigator.push(
+        context, MaterialPageRoute(builder: ((context) => MapPage())));
+  }
+
+  //go to profile page
+  void goToProfilePage() {
+    //pop menu drawer
+    Navigator.pop(context);
+    //go to profile page
+    Navigator.push(
+        context, MaterialPageRoute(builder: ((context) => UserProfilePage())));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +63,11 @@ class _CameraPageState extends State<CameraPage> {
         backgroundColor: hexStringToColor('00E5FF'),
         titleTextStyle: TextStyle(
             fontSize: 20, letterSpacing: 2, fontWeight: FontWeight.bold),
+      ),
+      drawer: MyDrawer(
+        onProfile: goToProfilePage,
+        onTap: goToHomePage,
+        onMap: goToMapPage,
       ),
       body: Stack(
         fit: StackFit.expand,

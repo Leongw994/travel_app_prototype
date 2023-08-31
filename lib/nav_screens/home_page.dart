@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:travelapp/color_utils/colors.dart';
 import 'package:travelapp/models/drawer.dart';
 import 'package:travelapp/nav_screens/camera_page.dart';
+import 'package:travelapp/nav_screens/map_page.dart';
 import 'package:travelapp/nav_screens/user_profile_page.dart';
 import 'package:travelapp/resuable_widget/app_large_text.dart';
 import 'package:travelapp/resuable_widget/app_text.dart';
@@ -58,6 +59,15 @@ class _HomePageState extends State<HomePage> {
         context, MaterialPageRoute(builder: ((context) => CameraPage())));
   }
 
+  //go to map page
+  void goToMapPage() {
+    //pop menu drawer
+    Navigator.pop(context);
+    //go to profile page
+    Navigator.push(
+        context, MaterialPageRoute(builder: ((context) => MapPage())));
+  }
+
   TextEditingController _searchLandmarkController = TextEditingController();
 
   @override
@@ -84,6 +94,7 @@ class _HomePageState extends State<HomePage> {
       drawer: MyDrawer(
         onProfile: goToProfilePage,
         onAR: goToCameraPage,
+        onMap: goToMapPage,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

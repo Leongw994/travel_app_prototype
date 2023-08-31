@@ -4,6 +4,7 @@ import 'package:travelapp/color_utils/colors.dart';
 import 'package:travelapp/models/drawer.dart';
 import 'package:travelapp/nav_screens/camera_page.dart';
 import 'package:travelapp/nav_screens/home_page.dart';
+import 'package:travelapp/nav_screens/map_page.dart';
 import 'package:travelapp/resuable_widget/textuser.dart';
 
 class UserProfilePage extends StatefulWidget {
@@ -20,7 +21,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
   void goToHomePage() {
     //pop menu drawer
     Navigator.pop(context);
-    //go to profile page
+    //go to home page
     Navigator.push(
         context, MaterialPageRoute(builder: ((context) => HomePage())));
   }
@@ -32,6 +33,15 @@ class _UserProfilePageState extends State<UserProfilePage> {
     //go to profile page
     Navigator.push(
         context, MaterialPageRoute(builder: ((context) => CameraPage())));
+  }
+
+  //go to map page
+  void goTMapaPage() {
+    //pop menu drawer
+    Navigator.pop(context);
+    //go to map page
+    Navigator.push(
+        context, MaterialPageRoute(builder: ((context) => MapPage())));
   }
 
   //edit button
@@ -89,6 +99,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
         drawer: MyDrawer(
           onTap: goToHomePage,
           onAR: goToCameraPage,
+          onMap: goTMapaPage,
         ),
         body: ListView(children: [
           const SizedBox(

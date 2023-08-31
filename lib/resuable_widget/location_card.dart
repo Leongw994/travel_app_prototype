@@ -26,7 +26,7 @@ class LocationCard extends StatelessWidget {
           //text
           Text(
             location.name,
-            style: GoogleFonts.dmSerifDisplay(fontSize: 20),
+            style: GoogleFonts.cairo(fontSize: 20),
           ),
           SizedBox(
             width: 160,

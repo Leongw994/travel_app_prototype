@@ -95,7 +95,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 height: 350,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("images/jerusalem.jpg"),
+                      image: AssetImage(widget.location.imagePath),
                       fit: BoxFit.cover),
                 ),
               ),
@@ -120,10 +120,13 @@ class _DetailsPageState extends State<DetailsPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             AppLargeText(
-                                text: "Jerusalem Inn", colour: Colors.black54),
+                                text: widget.location.name,
+                                colour: Colors.black54),
                             AppLargeText(
-                                text: "  £11.00",
-                                colour: hexStringToColor('00BCD4'))
+                              text: "   £" + widget.location.price,
+                              colour: hexStringToColor('00BCD4'),
+                              size: 10,
+                            )
                           ],
                         ),
                       ],
@@ -163,8 +166,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         text: "Description",
                         colour: Colors.black.withOpacity(0.8)),
                     SizedBox(height: 5),
-                    Text(
-                        "As England's oldest inn, the pub is nestled beneath the cliff on which Nottingham's historic castle stands, and was once a well-known pit stop for crusader knights. It is said that King Richard the Lionheart and his men are more than likely to have gathered at this historic royal dwelling before journeying to Jerusalem in 1189AD, thus giving the pub its unusual name."),
+                    Text(widget.location.description),
                     SizedBox(height: 15),
                     //Number of visitors
                     AppText(

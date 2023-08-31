@@ -19,10 +19,20 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordTextController = TextEditingController();
 
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailTextController.text.trim(),
-      password: _passwordTextController.text.trim(),
-    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailTextController.text.trim(),
+        password: _passwordTextController.text.trim(),
+      );
+    } on FirebaseAuthException catch (ex) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text('Invalid email or password!'),
+            );
+          });
+    }
   }
 
   @override
